@@ -1,0 +1,4 @@
+CREATE TABLE author (
+	id INTEGER PRIMARY KEY,
+	nome VARCHAR(100)
+);
