@@ -2,6 +2,7 @@ package br.unipar.unilivraria;
 
 import br.unipar.unilivraria.domain.Author;
 import br.unipar.unilivraria.dtos.AuthorInsertRequestDTO;
+import br.unipar.unilivraria.exception.BusinessException;
 import br.unipar.unilivraria.interfaces.AuthorWS;
 import br.unipar.unilivraria.services.AuthorService;
 import jakarta.jws.WebService;
@@ -9,7 +10,7 @@ import jakarta.jws.WebService;
 @WebService(endpointInterface = "br.unipar.unilivraria.interfaces.AuthorWS")
 public class AuthorWsImp implements AuthorWS {
     @Override
-    public Author insert(AuthorInsertRequestDTO authorDTO) {
+    public Author insert(AuthorInsertRequestDTO authorDTO) throws BusinessException {
         Author author = new Author(authorDTO);
 
         AuthorService authorService = new AuthorService();
