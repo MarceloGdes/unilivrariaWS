@@ -4,7 +4,7 @@ import br.unipar.unilivraria.dtos.AuthorInsertRequestDTO;
 
 public class Author {
     private Integer id;
-    private String nome;
+    private String nome; //TODO: Alterar o nome do metodo para name
 
     public Author(AuthorInsertRequestDTO authorDTO) {
         nome = authorDTO.getNome();
