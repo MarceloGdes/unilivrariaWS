@@ -6,9 +6,12 @@ import br.unipar.unilivraria.exception.BusinessException;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
+import javax.naming.NamingException;
+import java.sql.SQLException;
+
 @WebService
 public interface AuthorWS {
 
     @WebMethod
-    Author insert(AuthorInsertRequestDTO authorDTO) throws BusinessException;
+    Author insert(AuthorInsertRequestDTO authorDTO) throws BusinessException, SQLException, NamingException;
 }
