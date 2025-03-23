@@ -32,6 +32,11 @@ public class AuthorWsImp implements AuthorWS {
     }
 
     @Override
+    public Author getById(int id) throws BusinessException, SQLException, NamingException {
+        return authorService.getById(id);
+    }
+
+    @Override
     public void update(int id, AuthorInsertRequestDTO authorInsertRequestDTO) {
 
     }

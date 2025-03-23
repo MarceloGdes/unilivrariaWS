@@ -17,6 +17,8 @@ public class AuthorRepository {
             "SELECT * FROM author";
     private static final String SELECT_BY_NAME =
             "SELECT * FROM author WHERE name LIKE ?";
+    private static final String SELECT_BY_ID =
+            "SELECT * FROM author WHERE id = ?";
 
     public Author insert(Author author) throws SQLException, NamingException {
         Connection conn = null;
@@ -76,6 +78,37 @@ public class AuthorRepository {
         }
 
         return authors;
+    }
+
+    public Author getById(int id) throws SQLException, NamingException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        Author author;
+
+        try {
+            conn = new ConnectionFactory().getConnection();
+            pstmt = conn.prepareStatement(SELECT_BY_ID);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                author = new Author();
+                author.setId(rs.getInt("id"));
+                author.setName(rs.getString("name"));
+
+                return author;
+            }
+
+        }finally {
+            if(conn != null) conn.close();
+            if(rs != null) rs.close();
+            if(pstmt != null) pstmt.close();
+
+        }
+
+        return null;
     }
 
     public ArrayList<Author> getByName(String name) throws SQLException, NamingException {

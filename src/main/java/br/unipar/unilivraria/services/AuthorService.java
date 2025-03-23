@@ -31,6 +31,14 @@ public class AuthorService {
         return repository.getAll();
     }
 
+    public Author getById(int id) throws SQLException, NamingException, BusinessException {
+        var author = repository.getById(id);
+
+        if(author == null) throw new BusinessException("Autor não encontrado");
+
+        return author;
+    }
+
     public ArrayList<Author> getByName(String name) throws SQLException, NamingException, BusinessException {
         if(name == null || name.isEmpty()){
             throw new BusinessException("Você não inseriu um nome!");

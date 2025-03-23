@@ -17,6 +17,8 @@ public interface AuthorWS {
     Author insert(AuthorInsertRequestDTO authorDTO) throws BusinessException, SQLException, NamingException;
     ArrayList<Author> getAll() throws SQLException, NamingException;
     ArrayList<Author> getByName(String name) throws BusinessException, SQLException, NamingException;
+    Author getById(int id) throws BusinessException, SQLException, NamingException;
     void update(int id, AuthorInsertRequestDTO authorInsertRequestDTO);
     void remove(int id);
+
 }
