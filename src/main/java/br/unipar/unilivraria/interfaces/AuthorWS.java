@@ -16,5 +16,7 @@ public interface AuthorWS {
     @WebMethod
     Author insert(AuthorInsertRequestDTO authorDTO) throws BusinessException, SQLException, NamingException;
     ArrayList<Author> getAll() throws SQLException, NamingException;
-    Author get(int id);
+    ArrayList<Author> getByName(String name) throws BusinessException, SQLException, NamingException;
+    void update(int id, AuthorInsertRequestDTO authorInsertRequestDTO);
+    void remove(int id);
 }

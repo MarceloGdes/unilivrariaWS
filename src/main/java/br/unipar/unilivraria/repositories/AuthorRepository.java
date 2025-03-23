@@ -4,19 +4,19 @@ import br.unipar.unilivraria.domain.Author;
 import br.unipar.unilivraria.infra.ConnectionFactory;
 
 import javax.naming.NamingException;
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AuthorRepository {
     private static final String INSERT =
-            "INSERT INTO author(nome) VALUES(?)";
+            "INSERT INTO author(name) VALUES(?)";
     private static final String SELECT_ALL =
             "SELECT * FROM author";
+    private static final String SELECT_BY_NAME =
+            "SELECT * FROM author WHERE name LIKE ?";
 
     public Author insert(Author author) throws SQLException, NamingException {
         Connection conn = null;
@@ -27,7 +27,7 @@ public class AuthorRepository {
             conn = new ConnectionFactory().getConnection();
 
             pstmt = conn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, author.getNome());
+            pstmt.setString(1, author.getName());
             pstmt.executeUpdate();
 
             rs = pstmt.getGeneratedKeys();
@@ -59,7 +59,7 @@ public class AuthorRepository {
             while (rs.next()){
                 Author author = new Author();
                 author.setId(rs.getInt("id"));
-                author.setNome(rs.getString("nome"));
+                author.setName(rs.getString("name"));
 
                 authors.add(author);
             }
@@ -78,8 +78,35 @@ public class AuthorRepository {
         return authors;
     }
 
+    public ArrayList<Author> getByName(String name) throws SQLException, NamingException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        var authors = new ArrayList<Author>();
+
+        try {
+            conn = new ConnectionFactory().getConnection();
+            pstmt = conn.prepareStatement(SELECT_BY_NAME);
+            pstmt.setString(1, "%" + name + "%");
+            rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                Author author = new Author();
+                author.setId(rs.getInt("id"));
+                author.setName(rs.getString("name"));
+
+                authors.add(author);
+            }
+        }finally {
+            if(conn != null) conn.close();
+            if(rs != null) rs.close();
+            if(pstmt != null) pstmt.close();
+        }
+
+        return authors;
+    }
     //editar
     //excluir
-    //listar
-    //buscarPorNome
+
 }
