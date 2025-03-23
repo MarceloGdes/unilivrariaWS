@@ -7,6 +7,7 @@ import br.unipar.unilivraria.repositories.AuthorRepository;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AuthorService {
 
@@ -25,5 +26,9 @@ public class AuthorService {
         }
 
         return repository.insert(author);
+    }
+
+    public ArrayList<Author> getAll() throws SQLException, NamingException {
+        return repository.getAll();
     }
 }

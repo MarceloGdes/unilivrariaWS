@@ -9,6 +9,8 @@ public class Author {
     public Author(AuthorInsertRequestDTO authorDTO) {
         nome = authorDTO.getNome();
     }
+    public Author() {
+    }
 
     public Integer getId() {
         return id;

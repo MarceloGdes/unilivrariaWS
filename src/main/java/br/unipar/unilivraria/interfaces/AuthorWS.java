@@ -8,10 +8,13 @@ import jakarta.jws.WebService;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebService
 public interface AuthorWS {
 
     @WebMethod
     Author insert(AuthorInsertRequestDTO authorDTO) throws BusinessException, SQLException, NamingException;
+    ArrayList<Author> getAll() throws SQLException, NamingException;
+    Author get(int id);
 }
